@@ -9,22 +9,21 @@ import { UserEntity } from './user/entities/user.entity';
 import { Cv } from './cv/entities/cv.entity';
 import { Skill } from './skill/entities/skill.entity';
 
-
 @Module({
   imports: [
     UserModule,
     SkillModule,
     CvModule,
     TypeOrmModule.forRoot({
-      type: 'postgres', 
+      type: 'postgres',
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'changeme',
+      password: 'oneway13&',
       database: 'changeme',
-      entities: [UserEntity,Cv,Skill],
-      autoLoadEntities: true, 
-      synchronize: true,      
+      entities: [UserEntity, Cv, Skill],
+      autoLoadEntities: true,
+      synchronize: true,
     }),
   ],
   controllers: [AppController],
