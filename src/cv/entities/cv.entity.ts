@@ -24,7 +24,7 @@ export class Cv {
     @Column()
     path:String
 
-   @ManyToMany(() => Skill, skill => skill.cvs,{ cascade: ["insert", "update"],eager:true })
+   @ManyToMany(() => Skill, skill => skill.cvs,{ cascade: ["insert", "update"],eager:true})
    @JoinTable()
    skills:Skill[];
 

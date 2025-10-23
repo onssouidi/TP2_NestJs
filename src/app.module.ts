@@ -20,7 +20,7 @@ import { Skill } from './skill/entities/skill.entity';
       port: 5432,
       username: 'postgres',
       password: 'oneway13&',
-      database: 'changeme',
+      database: 'CV_DB',
       entities: [UserEntity, Cv, Skill],
       autoLoadEntities: true,
       synchronize: true,

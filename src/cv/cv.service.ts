@@ -4,6 +4,7 @@ import { UpdateCvDto } from './dto/update-cv.dto';
 import { Cv } from './entities/cv.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CV_ERROR_MESSAGES } from '../common/constants';
 
 @Injectable()
 export class CvService {
@@ -15,7 +16,7 @@ export class CvService {
   async findAll():Promise<Cv[]>{
       return this.CVRepository.find();
     }
-    async create(createcvDto: CreateCvDto):Promise<Cv>{
+    create(createcvDto: CreateCvDto):Promise<Cv>{
       const CV=this.CVRepository.create({
         ...createcvDto,
     });
@@ -25,7 +26,7 @@ export class CvService {
     async findOne(id:number):Promise<Cv>{
       const CV=await this.CVRepository.findOne({where:  {id}});
       if(!CV)
-       {throw new NotFoundException("CV not found !");}
+       {throw new NotFoundException(CV_ERROR_MESSAGES.NOT_FOUND);}
     
       return CV;
   
@@ -34,7 +35,7 @@ export class CvService {
     const CV=await this.findOne(id);
     if(!CV)
     {
-      throw new NotFoundException("CV not found");
+      throw new NotFoundException(CV_ERROR_MESSAGES.NOT_FOUND_UPDATE);
     }
     Object.assign(CV,updatecvdto);
     return this.CVRepository.save(CV);
@@ -44,7 +45,7 @@ export class CvService {
     const CV=await this.findOne(id);
     if(!CV)
     {
-      throw new NotFoundException("CV not found !");
+      throw new NotFoundException(CV_ERROR_MESSAGES.NOT_FOUND);
     }
     return this.CVRepository.remove(CV);
    }

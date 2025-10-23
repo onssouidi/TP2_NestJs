@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { USER_ERROR_MESSAGES } from '../common/constants';
 
 @Injectable()
 export class UserService {
@@ -25,7 +26,7 @@ export class UserService {
    async findOne(id:number):Promise<UserEntity>{
      const User=await this.UserRepository.findOne({where:  {id}});
      if(!User)
-      {throw new NotFoundException("User not found !");}
+      {throw new NotFoundException(USER_ERROR_MESSAGES.NOT_FOUND);}
    
      return User;
  
@@ -34,7 +35,7 @@ export class UserService {
    const User=await this.findOne(id);
    if(!User)
    {
-     throw new NotFoundException("User not found");
+     throw new NotFoundException(USER_ERROR_MESSAGES.NOT_FOUND_UPDATE);
    }
    Object.assign(User,updateUserdoto);
    return this.UserRepository.save(User);
@@ -44,7 +45,7 @@ export class UserService {
    const User=await this.findOne(id);
    if(!User)
    {
-     throw new NotFoundException("User not found !");
+     throw new NotFoundException(USER_ERROR_MESSAGES.NOT_FOUND);
    }
    return this.UserRepository.remove(User);
   }

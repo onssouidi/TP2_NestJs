@@ -4,6 +4,7 @@ import { UpdateSkillDto } from './dto/update-skill.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Skill } from './entities/skill.entity';
 import { Repository } from 'typeorm';
+import { SKILL_ERROR_MESSAGES } from '../common/constants';
 
 @Injectable()
 export class SkillService {
@@ -26,7 +27,7 @@ export class SkillService {
   async findOne(id:number):Promise<Skill>{
     const Skill=await this.SkillRepository.findOne({where:  {id}});
     if(!Skill)
-     {throw new NotFoundException("Skill record not found !");}
+     {throw new NotFoundException(SKILL_ERROR_MESSAGES.NOT_FOUND);}
   
     return Skill;
 
@@ -35,7 +36,7 @@ export class SkillService {
   const Skill=await this.findOne(id);
   if(!Skill)
   {
-    throw new NotFoundException("Skill record not found")
+    throw new NotFoundException(SKILL_ERROR_MESSAGES.NOT_FOUND_UPDATE);
   }
   Object.assign(Skill,updateSkilldoto);
   return this.SkillRepository.save(Skill);
@@ -45,7 +46,7 @@ export class SkillService {
   const Skill=await this.findOne(id);
   if(!Skill)
   {
-    throw new NotFoundException("Skill record not found !");
+    throw new NotFoundException(SKILL_ERROR_MESSAGES.NOT_FOUND);
   }
   return this.SkillRepository.remove(Skill);
  }
